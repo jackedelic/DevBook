@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 // @route    POST /api/users
-// @desc     Test route
+// @desc     Sign Up
 // @access   Public
 const validator = [
   check("name", "Name is required").not().isEmpty(),
@@ -65,7 +65,7 @@ router.post("/", [...validator], async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    res.status(500).json({ message: "server error" });
+    res.status(500).json({ msg: "server error" });
   }
 });
 
