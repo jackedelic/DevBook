@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://jack:jack@devbookcluster-ehbrg.mongodb.net/shard-00-01-ehbrg?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://jack:jack@devbookcluster-ehbrg.mongodb.net/shard-00-01-ehbrg?retryWrites=true&w=majority",
+  "jwtSecret": "jackkey"
 }
