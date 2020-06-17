@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const User = require("../models/User");
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   // Get token from req headers
   const token = req.header("x-auth-token");
 
@@ -15,7 +16,12 @@ module.exports = function (req, res, next) {
     // Get the hidden data created in post users router.
     // Recall: the data is { user: { id: "..." } }
     const decoded = jwt.verify(token, key);
-    req.user = decoded.user; // used by auth router middleware to find user by id.
+
+    // Check if token owner still exists in database
+    const user = await User.findById(decoded.user.id).exec();
+    if (!user) return res.status(401).json({ msg: "Token is invalid." });
+
+    req.user = decoded.user; // used by signing in route to find user by id, used by get profile route to find user by id
     next();
   } catch (e) {
     // token invalid
