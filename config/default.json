@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://jack:jack@devbookcluster-ehbrg.mongodb.net/shard-00-01-ehbrg?retryWrites=true&w=majority",
-  "jwtSecret": "jackkey"
+  "jwtSecret": "jackkey",
+  "githubClientId": "e22cdb49c3ea4c5a27d9",
+  "githubSecret": "ac5f863101bfb2eb852c5b2be0b60e1199898247"
 }
