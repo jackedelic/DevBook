@@ -198,7 +198,6 @@ router.put(
       if (profile.experience === undefined) profile.experience = []; // technically this is not required because by default we have empty [], refer to Profile model.
       profile.experience.unshift(newExp);
       await profile.save();
-      if (!profile) return res.status(400).json({ msg: "Profile not found." });
       res.json(profile);
     } catch (e) {
       console.error(e.message);
@@ -271,7 +270,6 @@ router.put(
       if (profile.education === undefined) profile.experience = []; // technically this is not required because by default we have empty [], refer to Profile model.
       profile.education.unshift(newEdu);
       await profile.save();
-      if (!profile) return res.status(400).json({ msg: "Profile not found." });
       res.json(profile);
     } catch (e) {
       console.error(e.message);
@@ -313,12 +311,10 @@ router.get("/github/:username", async (req, res) => {
       params: {
         per_page: "5",
         sort: "created:asc",
-        client_id: config.get("githubClientId"),
-        client_secret: config.get("githubSecret"),
       },
       method: "get",
       headers: {
-        "User-Agent": "node.js",
+        Authorization: `token ${config.get("githubToken")}`,
       },
     };
     const r = await axios(options);

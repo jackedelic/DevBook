@@ -21,7 +21,7 @@ module.exports = async function (req, res, next) {
     const user = await User.findById(decoded.user.id).exec();
     if (!user) return res.status(401).json({ msg: "Token is invalid." });
 
-    req.user = decoded.user; // used by signing in route to find user by id, used by get profile route to find user by id
+    req.user = decoded.user; // used by signing in route to find user by id, used by get profile route to find user by id, (any private route can use it)
     next();
   } catch (e) {
     // token invalid
