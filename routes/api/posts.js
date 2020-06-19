@@ -72,11 +72,11 @@ router.get("/:id", auth, async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    if (!post) return res.status(404).json({ msg: "No such post found. " });
+    if (!post) return res.status(404).json({ msg: "No such post found" });
 
     // Check if user owns the post to be deleted
     if (post.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: "User not authorized. " });
+      return res.status(401).json({ msg: "User not authorized" });
     }
     await post.remove();
     res.json({ msg: "Post removed" });
@@ -95,6 +95,7 @@ router.delete("/:id", auth, async (req, res) => {
 router.put("/like/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).json({ msg: "No such post found" });
     // Check if this user has already liked the post.
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id).length >
@@ -118,6 +119,7 @@ router.put("/like/:id", auth, async (req, res) => {
 router.put("/unlike/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).json({ msg: "No such post found" });
     // Check if this user has already liked the post.
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id)
@@ -145,7 +147,6 @@ router.post(
   "/comment/:id",
   [auth, check("text", "text is required").not().isEmpty()],
   async (req, res) => {
-    console.log("he");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -153,13 +154,15 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select("-password");
+      if (!user) return res.status(404).json({ msg: "No such user found" });
       const post = await Post.findById(req.params.id);
+      if (!post) return res.status(404).json({ msg: "No such post found" });
 
       const newComment = {
+        user: req.user.id,
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id,
       };
 
       post.comments.unshift(newComment);
@@ -179,6 +182,7 @@ router.post(
 router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).json({ msg: "No such post found" });
     // Pull out comment to be deleted
     const comment = post.comments.find(
       (com) => com.id === req.params.comment_id
