@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert.action";
+import { register } from "../../actions/auth.action";
+import PropTypes from "prop-types";
 
-const Register = () => {
+const Register = ({ dispatch, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,10 +23,16 @@ const Register = () => {
     e.preventDefault();
     if (password !== password2) {
       console.log("Passwords do not match");
+      dispatch(setAlert("Passwords do not match", "danger", 3000));
     } else {
-      console.log("Success");
+      dispatch(register({ name, email, password }));
     }
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Fragment>
@@ -39,7 +48,6 @@ const Register = () => {
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -60,7 +68,6 @@ const Register = () => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
             value={password}
             onChange={(e) => onChange(e)}
           />
@@ -70,7 +77,6 @@ const Register = () => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            minLength="6"
             value={password2}
             onChange={(e) => onChange(e)}
           />
@@ -84,4 +90,14 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+  };
+};
+export default connect(mapStateToProps)(Register);

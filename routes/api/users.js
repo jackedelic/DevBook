@@ -61,7 +61,7 @@ router.post("/", [...validator], async (req, res) => {
     };
     jwt.sign(payload, key, { expiresIn: "2 days" }, (err, encoded) => {
       if (err) throw err;
-      res.json({ encoded });
+      res.json({ token: encoded });
     });
   } catch (err) {
     console.log(err.message);

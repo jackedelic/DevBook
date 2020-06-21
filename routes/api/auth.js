@@ -8,10 +8,13 @@ const bcrypt = require("bcryptjs");
 const auth = require("../../middleware/auth");
 
 // @route GET /api/auth
-// @desc Test route
+// @desc Get user info + Authenticate with existing token
 // access Private
-router.get("/", auth, (req, res) => {
-  res.json({ msg: "Good", user: req.user });
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password").exec();
+    res.json(user);
+  } catch (e) {}
 });
 
 // @route    POST /api/auth
@@ -26,7 +29,6 @@ router.post("/", [...validator], async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
   const { email, password } = req.body;
 
   try {
@@ -49,7 +51,9 @@ router.post("/", [...validator], async (req, res) => {
     };
     jwt.sign(payload, key, { expiresIn: "2 days" }, (err, encoded) => {
       if (err) throw err;
-      res.json({ token: encoded });
+      res.json({
+        token: encoded,
+      });
     });
   } catch (err) {
     console.log(err.message);
