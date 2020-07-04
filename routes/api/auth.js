@@ -37,6 +37,7 @@ router.post("/", [...validator], async (req, res) => {
     if (!user) {
       return res.status(400).json({ errors: [{ msg: "Invalid credential" }] }); // Be careful not to say email not found, as we don want people to find one if some email goes through
     }
+    console.log(password);
     // Check if password is correct
     const isMatch = bcrypt.compareSync(password, user.password);
     if (!isMatch) {

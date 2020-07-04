@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 const { check, validationResult } = require("express-validator");
 const config = require("config");
 const axios = require("axios");
@@ -17,15 +18,16 @@ router.get("/me", auth, async (req, res) => {
     }).populate("user", ["name", "avatar"]);
 
     if (!profile) {
+      console.log("no profile");
       return res
         .status(400)
         .json({ msg: "There is no profile for this user." });
     }
+    return res.json(profile);
   } catch (e) {
     console.log(e.message);
     res.status(500).json({ msg: "Server error " });
   }
-  res.send("Profile route");
 });
 
 // @route    POST /api/profile
@@ -68,6 +70,7 @@ router.post(
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
+      console.log(skills);
       profileFields.skills = skills.split(",").map((s) => s.trim());
     }
     // Build social object
@@ -139,7 +142,8 @@ router.get("/user/:user_id", async (req, res) => {
 // @access   Private
 router.delete("/", auth, async (req, res) => {
   try {
-    // @todo - Remove post
+    // Remove user posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove profile
     await Profile.findOneAndRemove({
       user: req.user.id, // remember this is a private. user shd have been authenticated with user.id
@@ -157,7 +161,7 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
-// @route    PUT /api/experience, (some use POST)
+// @route    PUT /api/profile/experience, (some use POST)
 // @desc     Add profile experience
 // @access   Private
 router.put(
@@ -206,7 +210,7 @@ router.put(
   }
 );
 
-// @route    DELETE /api/experience/:exp_id, (some use put)
+// @route    DELETE /api/profile/experience/:exp_id, (some use put)
 // @desc     Delete one profile experience
 // @access   Private
 router.delete("/experience/:exp_id", auth, async (req, res) => {
@@ -220,7 +224,7 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
       .indexOf(req.params.exp_id);
     if (removeIndex < 0)
       return res.status(500).json({ msg: "experience not found" });
-    profile.experience.splice(removeIndex, 1);
+    profile.experience.splice(removeIndex, 1); // Alternatively we can just filter out the experience to be removed
     await profile.save();
     res.json(profile);
   } catch (error) {
@@ -229,7 +233,7 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
   }
 });
 
-// @route    PUT /api/education, (some use POST)
+// @route    PUT /api/profile/education, (some use POST)
 // @desc     Add profile education
 // @access   Private
 router.put(
