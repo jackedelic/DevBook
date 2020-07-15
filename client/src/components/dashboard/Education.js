@@ -49,7 +49,7 @@ const Education = ({ education, dispatch }) => {
 };
 
 Education.propTypes = {
-  experience: PropTypes.array.isRequired,
+  education: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

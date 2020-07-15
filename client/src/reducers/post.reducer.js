@@ -1,15 +1,12 @@
 import {
-  GET_PROFILE,
-  GET_PROFILES,
-  GET_REPOS,
-  PROFILE_ERROR,
-  CLEAR_PROFILE,
-  UPDATE_PROFILE,
+  GET_POSTS,
+  POST_ERROR,
+  UPDATE_LIKES,
+  DELETE_POST,
 } from "../actions/types";
 const initialState = {
-  profile: null,
-  profiles: [],
-  repos: [],
+  posts: [],
+  post: null,
   loading: true,
   error: {},
 };
@@ -17,37 +14,31 @@ const initialState = {
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case GET_PROFILE:
-    case UPDATE_PROFILE:
+    case GET_POSTS:
       return {
         ...state,
-        profile: payload,
         loading: false,
+        posts: payload,
       };
-    case GET_PROFILES:
+    case DELETE_POST:
       return {
         ...state,
-        profiles: payload,
         loading: false,
+        posts: state.posts.filter((post) => post._id !== payload),
       };
-    case PROFILE_ERROR:
+    case UPDATE_LIKES:
       return {
         ...state,
-        error: { ...payload },
         loading: false,
+        posts: state.posts.map((post) =>
+          post._id === payload.id ? { ...post, likes: payload.likes } : post
+        ),
       };
-    case CLEAR_PROFILE:
+    case POST_ERROR:
       return {
         ...state,
-        profile: null,
-        repos: [],
         loading: false,
-      };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
-        loading: false,
+        error: payload,
       };
     default:
       return state;

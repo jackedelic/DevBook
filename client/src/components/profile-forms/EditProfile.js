@@ -38,24 +38,27 @@ const EditProfile = ({ profile: { profile, loading }, dispatch, history }) => {
 
   useEffect(() => {
     console.log(profile);
-    dispatch(getCurrentProfile());
-    setFormData({
-      ...formData,
-      company: loading ? "" : profile.company,
-      website: loading ? "" : profile.website,
-      location: loading ? "" : profile.location,
-      bio: loading ? "" : profile.bio,
-      status: loading ? "" : profile.status,
-      githubusername: loading ? "" : profile.githubusername,
-      skills: loading ? "" : profile.skills.join(","),
-      youtube: loading || !profile.social ? "" : profile.social.youtube,
-      facebook: loading || !profile.social ? "" : profile.social.facebook,
-      twitter: loading || !profile.social ? "" : profile.social.twitter,
-      instagram: loading || !profile.social ? "" : profile.social.instagram,
-      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-    });
+    if (!profile) dispatch(getCurrentProfile());
+    if (!loading && profile) {
+      console.log("not loading and got profile");
+      setFormData({
+        ...formData,
+        company: profile.company,
+        website: profile.website,
+        location: profile.location,
+        bio: profile.bio,
+        status: profile.status,
+        githubusername: profile.githubusername,
+        skills: profile.skills.join(","),
+        youtube: !profile.social ? "" : profile.social.youtube,
+        facebook: !profile.social ? "" : profile.social.facebook,
+        twitter: !profile.social ? "" : profile.social.twitter,
+        instagram: !profile.social ? "" : profile.social.instagram,
+        linkedin: !profile.social ? "" : profile.social.linkedin,
+      });
+    }
     console.log(formData);
-  }, [loading]);
+  }, [loading, dispatch, profile]);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
