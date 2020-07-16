@@ -1,4 +1,11 @@
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST } from "./types";
+import {
+  GET_POSTS,
+  GET_POST,
+  POST_ERROR,
+  UPDATE_LIKES,
+  DELETE_POST,
+  ADD_POST,
+} from "./types";
 import axios from "axios";
 import { setAlert } from "./alert.action";
 
@@ -72,6 +79,50 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id, // to let the reducer know which post have been deleted, so it can filter out the deleted post from state, hence UI.
     });
     dispatch(setAlert("Post removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+      },
+    });
+  }
+};
+
+// Add post
+export const addPost = (formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post("/api/posts", formData, config);
+    dispatch({
+      type: ADD_POST,
+      payload: res.data,
+    });
+    dispatch(setAlert("Post created", "success"));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+      },
+    });
+  }
+};
+
+// Get a post
+export const getPost = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/posts/${id}`);
+    dispatch({
+      type: GET_POST,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: POST_ERROR,
