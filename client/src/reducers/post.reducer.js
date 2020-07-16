@@ -5,6 +5,8 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT,
 } from "../actions/types";
 const initialState = {
   posts: [],
@@ -53,6 +55,24 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: payload,
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        loading: false,
+        post: { ...state.post, comments: payload },
+      };
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        loading: false,
+        post: {
+          // Note we did not update posts, since it will be updated once the user go to view all posts -> dispatch get all posts
+          ...state.post,
+          comments: state.post.comments.filter(
+            (comment) => comment._id !== payload
+          ),
+        },
       };
     default:
       return state;
