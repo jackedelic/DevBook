@@ -6,6 +6,7 @@ import Spinner from "../layout/Spinner";
 import PostItem from "../posts/PostItem";
 import { Link } from "react-router-dom";
 import CommentForm from "./CommentForm";
+import CommentItem from "./CommentItem";
 
 // This component is wrapped directly in a Router, so it's got match prop. We need it to get the :id from url.
 const Post = ({ dispatch, post: { post, loading }, match }) => {
@@ -21,6 +22,11 @@ const Post = ({ dispatch, post: { post, loading }, match }) => {
       </Link>
       <PostItem post={post} showActions={false} />
       <CommentForm postId={post._id} />
+      <div className="comments">
+        {post.comments.map((comment) => (
+          <CommentItem key={comment._id} comment={comment} postId={post._id} />
+        ))}
+      </div>
     </Fragment>
   );
 };
