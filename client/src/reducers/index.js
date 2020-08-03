@@ -30,14 +30,14 @@ export default reducer;
     },
   }
   profile = {
-    profile: null,
+    profile: null,    ---> the specific profile the client is viewing e.g react route -> /profile/:d
     profiles: [],
     loading: null,
     error: {},
   }
   post = {
     posts: [],
-    post: null,
+    post: null,       ---> the specific post the client is viewing e.g react route -> /post/:id
     loading: false,
     error: {}
   }
