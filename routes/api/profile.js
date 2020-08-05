@@ -88,8 +88,8 @@ router.post(
         // Update
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
-          { $set: profileFields },
-          { new: true }
+          { $set: profileFields }, // $set operator is like PATCH, keeping irrelevant items in original profile .
+          { new: true } // return new document rather than old
         );
         return res.json(profile);
       }
@@ -270,7 +270,7 @@ router.put(
     try {
       const profile = await Profile.findOne({ user: req.user.id });
       if (!profile) return res.status(400).json({ msg: "Profile not found" });
-      if (profile.education === undefined) profile.experience = []; // technically this is not required because by default we have empty [], refer to Profile model.
+      if (profile.education === undefined) profile.education = []; // technically this is not required because by default we have empty [], refer to Profile model.
       profile.education.unshift(newEdu);
       await profile.save();
       res.json(profile);
