@@ -8,12 +8,13 @@ const ProfileGithub = ({ username, dispatch, repos }) => {
   useEffect(() => {
     dispatch(getGithubRepos(username));
   }, [getGithubRepos, username]);
+  console.log(repos);
   return (
     <div className="profile-github">
-      <h2 className="text-primary my-1">
+      <h3 className="">
         <i className="fab fa-github"></i> Github Repos
-      </h2>
-      {repos === null ? (
+      </h3>
+      {repos === null || repos.length == 0 ? (
         <Spinner />
       ) : (
         repos.map((repo) => (

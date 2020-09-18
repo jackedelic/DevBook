@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addEducation } from "../../actions/profile.action";
@@ -40,9 +41,9 @@ const AddEducation = ({ dispatch, history }) => {
         that you have attended
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
+      <Form onSubmit={onSubmit}>
+        <Form.Group controlId="school">
+          <Form.Control
             type="text"
             placeholder="* School or Bootcamp"
             name="school"
@@ -50,9 +51,9 @@ const AddEducation = ({ dispatch, history }) => {
             onChange={onChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <input
+        </Form.Group>
+        <Form.Group controlId="degree">
+          <Form.Control
             type="text"
             placeholder="* Degree or Certificate"
             name="degree"
@@ -60,59 +61,63 @@ const AddEducation = ({ dispatch, history }) => {
             onChange={onChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <input
+        </Form.Group>
+        <Form.Group controlId="fieldofstudy">
+          <Form.Control
             type="text"
             placeholder="Field Of Study"
             name="fieldofstudy"
             value={fieldofstudy}
             onChange={onChange}
           />
-        </div>
-        <div className="form-group">
+        </Form.Group>
+        <Form.Group controlId="fromDate">
           <h4>From Date</h4>
-          <input type="date" name="from" value={from} onChange={onChange} />
-        </div>
-        <div className="form-group">
-          <p>
-            <input
-              type="checkbox"
-              name="current"
-              value={current}
-              onChange={(e) => {
-                onChange(e);
-                toggleDisabled(!toDateDisabled);
-              }}
-            />{" "}
-            Current School or Bootcamp
-          </p>
-        </div>
-        <div className="form-group">
-          <h4>To Date</h4>
-          <input
+          <Form.Control
+            type="date"
+            name="from"
+            value={from}
+            onChange={onChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="current">
+          <Form.Check
+            type="checkbox"
+            name="current"
+            value={current}
+            label="Current School or Bootcamp"
+            onChange={(e) => {
+              onChange(e);
+              toggleDisabled(!toDateDisabled);
+            }}
+          />{" "}
+        </Form.Group>
+        <Form.Group controlId="toDate">
+          <Form.Label>To Date</Form.Label>
+          <Form.Control
             type="date"
             name="to"
             value={to}
             onChange={onChange}
             disabled={toDateDisabled ? "disabled" : ""}
           />
-        </div>
-        <div className="form-group">
-          <textarea
+        </Form.Group>
+        <Form.Group className="form-group">
+          <Form.Control
+            as="textarea"
             name="description"
             cols="30"
             rows="5"
             placeholder="Program Description"
             value={description}
             onChange={onChange}
-          ></textarea>
-        </div>
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
+          ></Form.Control>
+        </Form.Group>
+        <Button type="submit">Submit</Button>
+        <Link className="btn btn-secondary my-1" to="/dashboard">
           Go Back
         </Link>
-      </form>
+      </Form>
     </Fragment>
   );
 };

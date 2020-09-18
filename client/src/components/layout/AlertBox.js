@@ -1,17 +1,18 @@
 import React from "react";
+import { Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const Alert = ({ dispatch, alerts }) =>
+const AlertBox = ({ dispatch, alerts }) =>
   alerts !== null &&
   alerts.length > 0 &&
   alerts.map((alert) => (
-    <div key={alert.id} className={`alert alert-${alert.alertType}`}>
+    <Alert key={alert.id} variant={alert.alertType}>
       {alert.msg}
-    </div>
+    </Alert>
   ));
 
-Alert.propTypes = {
+AlertBox.propTypes = {
   dispatch: PropTypes.func.isRequired,
   alerts: PropTypes.array.isRequired,
 };
@@ -21,4 +22,4 @@ const mapStateToProps = (state) => {
     alerts: state.alert,
   };
 };
-export default connect(mapStateToProps)(Alert);
+export default connect(mapStateToProps)(AlertBox);

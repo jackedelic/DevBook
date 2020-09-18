@@ -21,7 +21,7 @@ const Profile = ({ dispatch, profile: { profile, loading }, auth, match }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <Link to="/profiles" className="btn btn-light">
+          <Link to="/profiles" className="btn btn-secondary">
             Back to Profiles
           </Link>
           {auth.isAuthenticated &&
@@ -31,35 +31,55 @@ const Profile = ({ dispatch, profile: { profile, loading }, auth, match }) => {
                 Edit
               </Link>
             )}
-          <ProfileTop profile={profile} />
-          <ProfileAbout profile={profile} />
-          <div className="profile-exp bg-white p-2">
-            {profile.experience.length > 0 ? (
-              <Fragment>
-                <h2 class="text-primary">Experience</h2>
-                {profile.experience.map((exp) => (
-                  <ProfileExperience experience={exp} key={exp._id} />
-                ))}
-              </Fragment>
-            ) : (
-              <h4>No experience credentials</h4>
-            )}
+          <div className="container">
+            <div className="row mb-4">
+              <div className="col-xs-12 col-md-6">
+                <ProfileTop profile={profile} />
+              </div>
+              <div className="col-xs-12 col-md-6 mt-md-0 mt-4">
+                <ProfileAbout profile={profile} />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="p-3 border rounded mb-3">
+                  {profile.githubusername && (
+                    <ProfileGithub username={profile.githubusername} />
+                  )}
+                </div>
+                <div className="p-3 border rounded mb-3">
+                  {profile.experience.length > 0 ? (
+                    <Fragment>
+                      <h3 class="">Experience</h3>
+                      {profile.experience.map((exp) => (
+                        <Fragment>
+                          <div className="line"></div>
+                          <ProfileExperience experience={exp} key={exp._id} />
+                        </Fragment>
+                      ))}
+                    </Fragment>
+                  ) : (
+                    <h4>No experience credentials</h4>
+                  )}
+                </div>
+                <div className="p-3 border rounded mb-3">
+                  {profile.education.length > 0 ? (
+                    <Fragment>
+                      <h3 class="">Education</h3>
+                      {profile.education.map((edu) => (
+                        <Fragment>
+                          <div className="line"></div>
+                          <ProfileEducation education={edu} key={edu._id} />
+                        </Fragment>
+                      ))}
+                    </Fragment>
+                  ) : (
+                    <h4>No education credentials</h4>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="profile-edu bg-white p-2">
-            {profile.education.length > 0 ? (
-              <Fragment>
-                <h2 class="text-primary">Education</h2>
-                {profile.education.map((edu) => (
-                  <ProfileEducation education={edu} key={edu._id} />
-                ))}
-              </Fragment>
-            ) : (
-              <h4>No education credentials</h4>
-            )}
-          </div>
-          {profile.githubusername && (
-            <ProfileGithub username={profile.githubusername} />
-          )}
         </Fragment>
       )}
     </Fragment>

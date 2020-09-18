@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -12,18 +13,28 @@ const Landing = ({ dispatch, isAuthenticated }) => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">Developer Connector</h1>
-          <p className="lead">
+          <h1 className="x-large">Facebook for Developers</h1>
+          <p className="lead text-light">
             Create a developer profile/portfolio, share posts and get help from
             other developers
           </p>
           <div className="buttons">
-            <Link to="/register" className="btn btn-primary">
+            <Button
+              href="/register"
+              className="w-50"
+              size="lg"
+              variant="outline-success"
+            >
               Sign Up
-            </Link>
-            <Link to="/login" className="btn btn-light">
+            </Button>
+            <Button
+              href="/login"
+              className="w-50"
+              size="lg"
+              variant="outline-primary"
+            >
               Login
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

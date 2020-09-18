@@ -14,9 +14,10 @@ const Posts = ({ dispatch, post: { posts, loading } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <h1 className="large text-primary">Posts</h1>
+      <h1 className="">Posts</h1>
       <p className="lead">
-        <i className="fas fa-user"></i>Welcome to the community
+        <i className="fas fa-user-astronaut sqr-20 mx-2"></i>
+        Welcome to the community
       </p>
       {/* PostForm  */}
       <PostForm />

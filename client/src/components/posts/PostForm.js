@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/post.action";
@@ -7,18 +8,19 @@ const PostForm = ({ dispatch }) => {
   const [text, setText] = useState("");
   return (
     <div className="post-form">
-      <div className="bg-primary p">
+      <div className="">
         <h3>Create A Post</h3>
       </div>
-      <form
-        className="form my-1"
+      <Form
+        className="my-3"
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(addPost({ text }));
           setText("");
         }}
       >
-        <textarea
+        <Form.Control
+          as="textarea"
           name="text"
           cols="30"
           rows="5"
@@ -26,9 +28,11 @@ const PostForm = ({ dispatch }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           required
-        ></textarea>
-        <input type="submit" className="btn btn-dark my-1" value="Submit" />
-      </form>
+        ></Form.Control>
+        <Button type="submit" variant="success" className="mt-2 btn-lg px-5">
+          Post
+        </Button>
+      </Form>
     </div>
   );
 };

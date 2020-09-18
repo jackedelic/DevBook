@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Form, Button } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -28,22 +29,22 @@ const Login = ({ dispatch, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead">
+      <h1 className="">Sign In</h1>
+      <p className="text-secondary">
         <i className="fas fa-user"></i> Sign Into your Devbook account
       </p>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
+      <Form onSubmit={onSubmit}>
+        <Form.Group controlId="formEmail">
+          <Form.Control
             type="email"
             placeholder="Email Address"
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
           />
-        </div>
-        <div className="form-group">
-          <input
+        </Form.Group>
+        <Form.Group controlId="formPassword">
+          <Form.Control
             type="password"
             placeholder="Password"
             name="password"
@@ -51,9 +52,11 @@ const Login = ({ dispatch, isAuthenticated }) => {
             value={password}
             onChange={(e) => onChange(e)}
           />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
+        </Form.Group>
+        <Button type="submit" variant="primary">
+          Login
+        </Button>
+      </Form>
       <p className="my-1">
         Don't have an account <Link to="/register">Sign Up</Link>
       </p>

@@ -3,16 +3,12 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 
 const ProfileEducation = ({
-  school,
-  degree,
-  fieldofstudy,
-  from,
-  to,
-  description,
+  education: { school, degree, fieldofstudy, from, to, description },
 }) => {
+  console.log(`school: ${school}`);
   return (
     <Fragment>
-      <h3 className="text-dark">{school}</h3>
+      <h4 className="text-dark">{school}</h4>
       <p>
         <Moment format="YYYY/MM/DD">{from}</Moment> -{" "}
         {to === null ? " Now" : <Moment format="YYYY/MM/DD">{to}</Moment>}
@@ -31,7 +27,7 @@ const ProfileEducation = ({
 };
 
 ProfileEducation.propTypes = {
-  education: PropTypes.array.isRequired,
+  education: PropTypes.object.isRequired,
 };
 
 export default ProfileEducation;

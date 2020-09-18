@@ -16,6 +16,7 @@ var UserSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
+    // default: "https://thispersondoesnotexist.com/image?cache=" + Date.now(),
   },
   date: {
     type: Date,

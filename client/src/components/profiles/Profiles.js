@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from "react";
+import { CardGroup } from "react-bootstrap";
 import Spinner from "../layout/Spinner";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -15,19 +16,18 @@ const Profiles = ({ dispatch, profile: { profiles, loading } }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Developers</h1>
-          <p className="lead">
-            <i className="fab fa-connectdevelop"></i> Browse and connect with
-            developers
-          </p>
-          <div className="profiles">
+          <h1 className="display-4">Developers</h1>
+          <h4 className="text-secondary">
+            <i className="fas fa-users"></i> Browse and connect with developers
+          </h4>
+          <CardGroup className="profiles container mt-5">
             {profiles.length > 0 &&
               profiles.map((profile) =>
                 profile.user ? (
                   <ProfileItem key={profile._id} profile={profile} />
                 ) : null
               )}
-          </div>
+          </CardGroup>
         </Fragment>
       )}
     </Fragment>

@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Form, Button } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert.action";
@@ -36,53 +37,56 @@ const Register = ({ dispatch, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
+      <h1 className="">Sign Up</h1>
+      <p className="text-secondary">
         <i className="fas fa-user"></i> Create Your Account
       </p>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
+      <Form onSubmit={onSubmit}>
+        <Form.Group controlId="formName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
             type="text"
             placeholder="Name"
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
           />
-        </div>
-        <div className="form-group">
-          <input
+          <Form.Text className="text-muted">Your public name</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formEmail">
+          <Form.Control
             type="email"
             placeholder="Email Address"
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
           />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
-        </div>
-        <div className="form-group">
-          <input
+          <Form.Text className="text-muted">
+            We'll never spam your inbox
+          </Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formPassword">
+          <Form.Control
             type="password"
             placeholder="Password"
             name="password"
             value={password}
             onChange={(e) => onChange(e)}
           />
-        </div>
-        <div className="form-group">
-          <input
+        </Form.Group>
+        <Form.Group controlId="formConfirmPassword">
+          <Form.Control
             type="password"
             placeholder="Confirm Password"
             name="password2"
             value={password2}
             onChange={(e) => onChange(e)}
           />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
-      </form>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Register
+        </Button>
+      </Form>
       <p className="my-1">
         Already have an account? <Link to="/login">Sign In</Link>
       </p>

@@ -12,21 +12,26 @@ const ProfileTop = ({
   },
 }) => {
   return (
-    <div className="profile-top bg-primary p-2">
-      <img
-        className="round-img my-1"
-        src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-        alt=""
-      />
-      <h1 className="large">{name}</h1>
-      <p className="lead">
+    <div className="container m-0">
+      <div className="row justify-content-center">
+        <img className="round-img col-6" src={avatar} alt="" />
+      </div>
+      <div className="row justify-content-center">
+        <h2 className="">{name}</h2>
+      </div>
+      <p className="my-0">
         {status} {company && <span> at {company}</span>}
       </p>
       <p>{location && <span>{location}</span>}</p>
       <div className="icons my-1">
         {website && (
-          <a href={website} target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-globe fa-2x"></i>
+          <a
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-secondary"
+          >
+            <i className="fas fa-globe mr-1"></i> {website}
           </a>
         )}
         {social && social.twitter && (
