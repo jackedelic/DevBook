@@ -15,8 +15,8 @@ const App = () => {
       console.log("got token");
       setAuthToken(localStorage.token);
     }
-    // store.dispatch(loadUser(localStorage.token));
-    store.dispatch(login({ email: "casey@yahoo.com", password: "111111" }));
+    store.dispatch(loadUser(localStorage.token));
+    // store.dispatch(login({ email: "casey@yahoo.com", password: "111111" }));
   }, []);
 
   return (
