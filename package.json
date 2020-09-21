@@ -6,7 +6,7 @@
   "author": "Jack Wong",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --timeout 30000",
+    "test": "mocha --timeout 30000 --exit",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
