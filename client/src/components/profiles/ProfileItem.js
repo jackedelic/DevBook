@@ -2,6 +2,7 @@ import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ProfileItem = ({
   profile: {
@@ -12,14 +13,29 @@ const ProfileItem = ({
     skills,
   },
 }) => {
-  console.log(`id of ${name} is ${_id}`);
+  // replace avatar from url received from GCF (need delay for thispersondoesnotexist.com to change img)
+  // Actually is to fulfill CS3219 Task B3 criteria of deploying to a serverless service.
+  const getAvatarUrl = async () => {
+    try {
+      const res = await axios.get(
+        "https://asia-southeast2-devbook-cs3219.cloudfunctions.net/getAvatarUrl"
+      );
+      return res.data.url;
+    } catch (e) {
+      console.log(`Error while calling getAvatarUrl(): `);
+      console.error(e);
+      // default to this url
+      return "https://thispersondoesnotexist.com/image/" + name;
+    }
+  };
+
   return (
     <div className="col-sm-12 col-md-6 col-lg-4 my-2">
       <Card className="profile-card">
         <div className="pt-4 row justify-content-center">
           <Card.Img
             variant="top"
-            src={avatar}
+            src={getAvatarUrl()}
             className="rounded-circle col-7"
           />
         </div>

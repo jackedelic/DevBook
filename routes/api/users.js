@@ -34,7 +34,7 @@ router.post("/", [...validator], async (req, res) => {
         .json({ errors: [{ msg: "User already exists " }] });
     }
     // Get user's gravatar
-    const avatar = "https://thispersondoesnotexist.com/image" + name;
+    const avatar = "https://thispersondoesnotexist.com/image/" + name;
 
     // Hash user password
     const salt = bcrypt.genSaltSync(10);
