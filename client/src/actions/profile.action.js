@@ -8,7 +8,33 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
+  GET_PROFILE_AVATAR,
 } from "./types";
+
+// Get avatar url
+export const getAvatarUrl = (prof_id) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      "https://asia-southeast2-devbook-cs3219.cloudfunctions.net/getAvatarUrl"
+    );
+    dispatch({
+      type: GET_PROFILE_AVATAR,
+      payload: {
+        prof_id,
+        avatarUrl: res.data.url,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: e.response ? e.response.statusText : "",
+        status: e.response ? e.response.status : "",
+      },
+    });
+  }
+};
 
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {

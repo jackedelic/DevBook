@@ -5,9 +5,10 @@ import {
   PROFILE_ERROR,
   CLEAR_PROFILE,
   UPDATE_PROFILE,
+  GET_PROFILE_AVATAR,
 } from "../actions/types";
 const initialState = {
-  profile: null,
+  profile: {},
   profiles: [],
   repos: [],
   loading: true,
@@ -22,6 +23,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         profile: payload,
+        loading: false,
+      };
+    case GET_PROFILE_AVATAR:
+      return {
+        ...state,
+        profiles: state.profiles.map((prof) =>
+          prof._id == payload.prof_id
+            ? { ...prof, avatarUrl: payload.avatarUrl }
+            : prof
+        ),
         loading: false,
       };
     case GET_PROFILES:
