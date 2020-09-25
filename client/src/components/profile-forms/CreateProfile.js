@@ -160,7 +160,7 @@ const CreateProfile = ({ dispatch, history }) => {
 
         {displaySocialInputs && (
           <Fragment>
-            <Form.Group className="social-input container-fluid my-4">
+            <Form.Group className="container-fluid my-4">
               <Row>
                 <i className="fab fa-twitter fa-2x"></i>
                 <Form.Control
@@ -174,7 +174,7 @@ const CreateProfile = ({ dispatch, history }) => {
               </Row>
             </Form.Group>
 
-            <Form.Group className="social-input container-fluid my-4">
+            <Form.Group className="container-fluid my-4">
               <Row>
                 <i className="fab fa-facebook fa-2x"></i>
                 <Form.Control
@@ -188,7 +188,7 @@ const CreateProfile = ({ dispatch, history }) => {
               </Row>
             </Form.Group>
 
-            <Form.Group className="social-input container-fluid my-4">
+            <Form.Group className="container-fluid my-4">
               <Row>
                 <i className="fab fa-youtube fa-2x"></i>
                 <Form.Control
@@ -202,7 +202,7 @@ const CreateProfile = ({ dispatch, history }) => {
               </Row>
             </Form.Group>
 
-            <Form.Group className="social-input container-fluid my-4">
+            <Form.Group className="container-fluid my-4">
               <Row>
                 <i className="fab fa-linkedin fa-2x"></i>
                 <Form.Control
@@ -216,7 +216,7 @@ const CreateProfile = ({ dispatch, history }) => {
               </Row>
             </Form.Group>
 
-            <Form.Group className="social-input container-fluid my-4">
+            <Form.Group className="container-fluid my-4">
               <Row>
                 <i className="fab fa-instagram fa-2x"></i>
                 <Form.Control

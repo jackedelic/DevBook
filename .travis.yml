@@ -1,3 +1,8 @@
 language: node_js
 node_js:
   - 14.3.0
+deploy:
+  provider: gae
+  keyfile: google-service-account.json
+  project: devbook-cs3219
+  on: master
