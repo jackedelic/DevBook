@@ -3,6 +3,6 @@ node_js:
   - 14.3.0
 deploy:
   provider: gae
-  keyfile: google-service-account.json
+  keyfile: client-secret.json.enc
   project: devbook-cs3219
   on: master
