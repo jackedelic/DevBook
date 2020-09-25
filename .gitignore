@@ -2,3 +2,4 @@ node_modules/
 config/default.json
 .DS_store
 client/build/
+client-secret.json

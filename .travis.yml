@@ -3,7 +3,7 @@ node_js:
 - 14.3.0
 deploy:
   provider: gae
-  keyfile: client-secret.json.enc
+  keyfile: client-secret.json
   project: devbook-cs3219
   on: master
 before_install:
