@@ -3,12 +3,14 @@ services:
   devbook-server:
     build:
       context: .
+    image: markdockerberg/devbook-server:1.0
     container_name: devbook-server-container
     ports:
       - "5000:5000"
   nginx:
     build:
       context: ./nginx
+    image: markdockerberg/devbook-nginx:1.0
     container_name: nginx-container
     ports:
       - "80:80"
