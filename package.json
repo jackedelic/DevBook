@@ -11,7 +11,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "gcp-build": "npm install --prefix client && npm run build --prefix client",
+    "gcp-build": "npm install --prefix client && npm run build --prefix client && rm -Rf ./client/node_modules",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
