@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         profiles: state.profiles.map((prof) =>
-          prof._id == payload.prof_id
+          prof._id === payload.prof_id
             ? { ...prof, avatarUrl: payload.avatarUrl }
             : prof
         ),
