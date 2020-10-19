@@ -30,7 +30,7 @@ export const register = ({ name, email, password }) => async dispatch => {
     });
     dispatch(loadUser());
   } catch (e) {
-    dispatch(setAlert("Register failed", "danger")));
+    dispatch(setAlert("Register failed", "danger"));
     dispatch({
       type: REGISTER_FAIL
     });
