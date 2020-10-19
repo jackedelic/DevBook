@@ -13,6 +13,7 @@ const auth = require("../../middleware/auth");
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password").exec();
+    console.log(user);
     res.json(user);
   } catch (e) {}
 });
@@ -22,7 +23,7 @@ router.get("/", auth, async (req, res) => {
 // @access   Public
 const validator = [
   check("email", "Please enter a valid email address").isEmail(),
-  check("password", "Password is required").exists(),
+  check("password", "Password is required").exists()
 ];
 router.post("/", [...validator], async (req, res) => {
   const errors = validationResult(req);
@@ -46,13 +47,13 @@ router.post("/", [...validator], async (req, res) => {
     const key = config.get("jwtSecret");
     const payload = {
       user: {
-        id: user.id,
-      },
+        id: user.id
+      }
     };
     jwt.sign(payload, key, { expiresIn: "2 days" }, (err, encoded) => {
       if (err) throw err;
       res.json({
-        token: encoded,
+        token: encoded
       });
     });
   } catch (err) {

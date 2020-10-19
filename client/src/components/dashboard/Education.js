@@ -5,29 +5,32 @@ import Moment from "react-moment";
 import { deleteEducation } from "../../actions/profile.action";
 
 const Education = ({ education, dispatch }) => {
-  const educations = education.map((edu) => (
-    <tr key={edu._id}>
-      <td>{edu.school}</td>
-      <td className="hide-sm">{edu.degree}</td>
-      <td className="hide-sm">{edu.fieldofstudy}</td>
-      <td>
-        <Moment format="YYYY/MM/DD">{edu.from}</Moment> -{" "}
-        {edu.to === null ? (
-          " Now"
-        ) : (
-          <Moment format="YYYY/MM/DD">{edu.to}</Moment>
-        )}
-      </td>
-      <td>
-        <button
-          className="btn btn-danger"
-          onClick={() => dispatch(deleteEducation(edu._id))}
-        >
-          Delete
-        </button>
-      </td>
-    </tr>
-  ));
+  const educations =
+    education !== undefined
+      ? education.map(edu => (
+          <tr key={edu._id}>
+            <td>{edu.school}</td>
+            <td className="hide-sm">{edu.degree}</td>
+            <td className="hide-sm">{edu.fieldofstudy}</td>
+            <td>
+              <Moment format="YYYY/MM/DD">{edu.from}</Moment> -{" "}
+              {edu.to === null ? (
+                " Now"
+              ) : (
+                <Moment format="YYYY/MM/DD">{edu.to}</Moment>
+              )}
+            </td>
+            <td>
+              <button
+                className="btn btn-danger"
+                onClick={() => dispatch(deleteEducation(edu._id))}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))
+      : null;
 
   return (
     <Fragment>
@@ -50,7 +53,7 @@ const Education = ({ education, dispatch }) => {
 
 Education.propTypes = {
   education: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect(null)(Education);
