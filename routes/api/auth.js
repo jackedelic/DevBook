@@ -44,7 +44,7 @@ router.post("/", [...validator], async (req, res) => {
       return res.status(400).json({ errors: [{ msg: "Invalid credential" }] });
     }
     // Create and return jsonwebtoken
-    const key = config.get("jwtSecret");
+    const key = process.env.JWT_SECRET);
     const payload = {
       user: {
         id: user.id
