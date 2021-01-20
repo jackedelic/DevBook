@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha --timeout 30000 --exit",
-    "start": "node server.js",
+    "start": "NPM_USE_PRODUCTION=false npm install --prefix client && npm run build --prefix client && node server",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

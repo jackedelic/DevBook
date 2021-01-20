@@ -3,3 +3,7 @@ config/default.json
 .DS_store
 client/build/
 client-secret.json
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
